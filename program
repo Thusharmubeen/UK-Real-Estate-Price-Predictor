@@ -1,0 +1,37 @@
+"""
+Project: UK House Price Predictor
+Author: Abhishek
+Description: A Linear Regression model to estimate house prices in Leeds.
+"""
+
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.linear_model import LinearRegression
+
+# 1. Load Data
+data = {
+    'Sq_Ft': [500, 750, 1000, 1250, 1500],
+    'Bedrooms': [1, 2, 2, 3, 4],
+    'Price_GBP': [150000, 210000, 280000, 350000, 420000]
+}
+df = pd.DataFrame(data)
+
+# 2. Train Model
+X = df[['Sq_Ft', 'Bedrooms']]
+y = df['Price_GBP']
+model = LinearRegression().fit(X, y)
+
+# 3. Predict & Visualize
+plt.figure(figsize=(10, 6))
+plt.scatter(df['Sq_Ft'], df['Price_GBP'], color='red', label='Actual Data')
+plt.plot(df['Sq_Ft'], model.predict(X), color='blue', label='Prediction Trend')
+
+plt.title('Leeds Housing Market: Price vs Square Footage')
+plt.xlabel('Size (Sq Ft)')
+plt.ylabel('Price (£)')
+plt.legend()
+plt.grid(True, linestyle='--', alpha=0.7)
+
+# IMPORTANT: Save the plot so it shows up on your GitHub README
+plt.savefig('prediction_plot.png')
+print("Project complete. Graph saved as prediction_plot.png")
